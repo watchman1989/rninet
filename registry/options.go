@@ -4,6 +4,7 @@ package registry
 type Options struct {
 	Addrs []string
 	Path string
+	Timeout int64
 	TTL int64
 	Interval int64
 }
@@ -20,6 +21,12 @@ func WithAddrs (addrs []string) Option {
 func WithPath (path string) Option {
 	return func (opts *Options) {
 		opts.Path = path
+	}
+}
+
+func WithTimeout (timeout int64) Option {
+	return func (opts *Options) {
+		opts.Timeout = timeout
 	}
 }
 
