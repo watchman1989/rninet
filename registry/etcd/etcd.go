@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"
+	"go.etcd.io/etcd/v3/mvcc/mvccpb"
 	"projects/rninet/registry"
 	"sync"
 	"time"
@@ -13,13 +14,15 @@ import (
 
 const (
 	SERVICE_CHAN_LENGTH = 10
-	ETCD_SERVICE_PATH = "/SERVICE/"
+	SERVICE_PATH = "/SERVICE/"
 )
 
+// SERVICE_APTH: /SERVICE/name/id
 
 var (
 	etcdRegistry *EtcdRegistry = &EtcdRegistry{
 		registerChannel: make(chan *registry.Service, SERVICE_CHAN_LENGTH),
+		allServices: make(map[string]string),
 	}
 )
 
@@ -29,14 +32,17 @@ type EtcdRegistry struct {
 	client *clientv3.Client
 	lock sync.Mutex
 	registerChannel chan *registry.Service
+	allServices map[string]string
 }
 
 
 func init () {
 
+	fmt.Println("ETCD_INIT")
+
 	registry.RegisterPlugin(etcdRegistry)
 
-	go etcdRegistry.run()
+	fmt.Println("ETCD_INIT_OVER")
 }
 
 
@@ -60,6 +66,9 @@ func (e *EtcdRegistry) Init (ctx context.Context, opts ...registry.Option) error
 		fmt.Printf("ETCD_CLIENT_NEW_ERROR: %v\n", err)
 		return err
 	}
+
+	go etcdRegistry.watch()
+	go etcdRegistry.listen()
 
 	return nil
 }
@@ -90,8 +99,37 @@ func (e *EtcdRegistry) GetService (ctx context.Context, name string) (*registry.
 }
 
 
+func (e *EtcdRegistry) watch () {
 
-func (e *EtcdRegistry) run () {
+	fmt.Println("START_WATCH: ", SERVICE_PATH)
+
+	wch := e.client.Watch(context.Background(), SERVICE_PATH, clientv3.WithPrefix())
+	for wresp := range wch {
+		for _, ev := range wresp.Events {
+			fmt.Printf("%s %s: %s\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+
+			if false {
+
+			} else if ev.IsCreate() {
+				fmt.Println("IS_CREATE")
+			} else if ev.IsModify() {
+				fmt.Println("IS_MODIFY")
+			} else if ev.Type == mvccpb.DELETE {
+				fmt.Println("IS_DELETE")
+			} else {
+
+			}
+		}
+	}
+}
+
+
+
+func (e *EtcdRegistry) listen () {
+
+	fmt.Println("START_LISTEN", e)
+
+	time.Sleep(20 * time.Second)
 
 	for {
 		select {
@@ -100,5 +138,7 @@ func (e *EtcdRegistry) run () {
 		}
 	}
 }
+
+
 
 

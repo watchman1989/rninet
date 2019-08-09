@@ -66,3 +66,8 @@ func InitRegistry (ctx context.Context, name string, opts ...Option) (Registry, 
 
 	return pluginManager.initRegister(ctx, name, opts...)
 }
+
+func GetPlugins() *PluginManager {
+
+	return pluginManager
+}
