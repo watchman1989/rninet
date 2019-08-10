@@ -15,8 +15,8 @@ func main () {
 	reg, err := registry.InitRegistry(
 		context.TODO(),
 		"etcd",
-		registry.WithAddrs([]string{"10.42.6.161:2379"}),
-		registry.WithTimeout(1),
+		registry.WithAddrs([]string{"127.0.0.1:2379"}),
+		registry.WithTimeout(3),
 		registry.WithTTL(3),
 		registry.WithInterval(1),
 	)
@@ -37,7 +37,44 @@ func main () {
 	reg.Register(context.TODO(), service)
 
 
+	time.Sleep(5 * time.Second)
 
-	time.Sleep(10 * time.Second)
+	reg.Deregister(context.TODO(), service)
+
+
+
+	s1 := &registry.Service{Name: "s1", Addr: "http://127.0.0.1:8080"}
+	reg.Register(context.TODO(), s1)
+	s2 := &registry.Service{Name: "s1", Addr: "http://127.0.0.1:8081"}
+	reg.Register(context.TODO(), s2)
+	s3 := &registry.Service{Name: "s2", Addr: "http://127.0.0.2:8080"}
+	reg.Register(context.TODO(), s3)
+	s4 := &registry.Service{Name: "s3", Addr: "http://127.0.0.1:8082"}
+	reg.Register(context.TODO(), s4)
+	s5 := &registry.Service{Name: "s3", Addr: "http://127.0.0.1:8083"}
+	reg.Register(context.TODO(), s5)
+
+	time.Sleep(5 * time.Second)
+	mapSrv, _ := reg.QueryService(context.TODO(), "s1")
+	fmt.Println("QUERY_SERVICE:", mapSrv)
+
+
+	go func() {
+
+		srvChan := reg.SyncService(context.TODO(), "s3")
+		for srvMap := range srvChan {
+			fmt.Println("SYNC_SRV: ", srvMap)
+		}
+
+	}()
+
+	time.Sleep(2 * time.Second)
+	reg.Deregister(context.TODO(), s5)
+
+	s6 := &registry.Service{Name: "s3", Addr: "http://127.0.0.1:8088"}
+	reg.Register(context.TODO(), s6)
+
+
+	time.Sleep(1000 * time.Second)
 
 }
