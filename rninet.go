@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 	"projects/rninet/registry"
+	_ "projects/rninet/registry/consul"
 	_ "projects/rninet/registry/etcd"
 	"time"
 )
 
-func main () {
 
-	fmt.Println("MAIN_START")
 
+func TestEtcd() {
 	reg, err := registry.InitRegistry(
 		context.TODO(),
 		"etcd",
@@ -73,6 +73,48 @@ func main () {
 
 	s6 := &registry.Service{Name: "s3", Addr: "http://127.0.0.1:8088"}
 	reg.Register(context.TODO(), s6)
+}
+
+
+func TestConsul() {
+
+	reg, err := registry.InitRegistry(
+		context.TODO(),
+		"consul",
+		registry.WithAddrs([]string{"127.0.0.1:8500"}),
+		registry.WithInterval(5),
+		registry.WithTTL(10),
+	)
+
+	if err != nil {
+		fmt.Printf("INIT_CONSUL_ERROR: %v\n", err)
+		return
+	}
+
+	fmt.Println("INIT_CONSUL_REGISTRY_OVER")
+
+	fmt.Println("PULUGINS: ", registry.GetPlugins())
+
+	s0 := registry.Service{Name: "test_consul", Ip: "192.168.1.10", Port: 5000}
+	reg.Register(context.TODO(), &s0)
+
+	go reg.SyncService(context.TODO(), "test_consul")
+
+
+
+	time.Sleep(5 * time.Second)
+
+	s1 := registry.Service{Name: "test_consul", Ip: "192.168.1.14", Port: 5005}
+	reg.Register(context.TODO(), &s1)
+
+}
+
+
+func main () {
+
+	fmt.Println("MAIN_START")
+
+	TestConsul()
 
 
 	time.Sleep(1000 * time.Second)

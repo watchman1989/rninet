@@ -1,6 +1,8 @@
 package registry
 
-import "context"
+import (
+	"context"
+)
 
 
 type Registry interface {
