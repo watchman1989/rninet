@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"projects/rninet/infra"
+	"projects/rninet/infra/etcd"
 	"projects/rninet/registry"
 	_ "projects/rninet/registry/consul"
 	_ "projects/rninet/registry/etcd"
@@ -76,6 +78,23 @@ func TestEtcd() {
 }
 
 
+
+func TestEtcdCom() {
+
+	infra.AddStarter(context.Background(),
+		"etcd",
+		&etcd.EtcdStarter{},
+		etcd.WithAddrs([]string{"10.42.6.161"}),
+		etcd.WithTimeout(3),
+		)
+
+	etcdCom := etcd.NewEtcdComponent()
+	fmt.Println("ETCD_COM: ", etcdCom)
+
+
+}
+
+
 func TestConsul() {
 
 	reg, err := registry.InitRegistry(
@@ -114,7 +133,7 @@ func main () {
 
 	fmt.Println("MAIN_START")
 
-	TestConsul()
+	TestEtcdCom()
 
 
 	time.Sleep(1000 * time.Second)

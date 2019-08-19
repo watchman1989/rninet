@@ -1,6 +1,7 @@
 package infra
 
 import (
+	"context"
 	"errors"
 	"sync"
 )
@@ -11,9 +12,8 @@ var (
 	}
 )
 
-
 type Starter interface {
-	Init() error
+	Init(ctx context.Context, opts ...interface{}) error
 	Stop() error
 }
 
@@ -23,10 +23,11 @@ type StarterManage struct {
 	mu sync.Mutex
 }
 
-func (s *StarterManage) add (name string, starter Starter) {
+func (s *StarterManage) add (ctx context.Context, name string, starter Starter, opts ...interface{}) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.Starters[name] = starter
+	starter.Init(ctx, opts...)
 }
 
 func (s *StarterManage) all () map[string]Starter {
@@ -35,8 +36,8 @@ func (s *StarterManage) all () map[string]Starter {
 	return s.Starters
 }
 
-func AddStarter (name string, starter Starter) {
-	starterManage.add(name, starter)
+func AddStarter (ctx context.Context, name string, starter Starter, opts ...interface{}) {
+	starterManage.add(ctx, name, starter, opts...)
 }
 
 func AllStarters () map[string]Starter {

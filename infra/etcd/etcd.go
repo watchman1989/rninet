@@ -25,11 +25,12 @@ type EtcdComponent struct {
 }
 
 
+type EtcdStarter struct {
+	options *Options
+}
 
-type EtcdStarter struct {}
 
-
-func (e *EtcdStarter) Init () error {
+func (e *EtcdStarter) Init (ctx context.Context, opts ...interface{}) error {
 
 	var (
 		config clientv3.Config
@@ -37,11 +38,16 @@ func (e *EtcdStarter) Init () error {
 		client *clientv3.Client
 	)
 
+	e.options = &Options{}
+	for _, opt := range opts {
+		opt.(Option)(e.options)
+	}
+
 	fmt.Println("ETCD_START_INIT")
 
 	config = clientv3.Config{
-		Endpoints: []string{"10.42.6.161:2379", "10.42.128.216:2379", "10.42.54.90:2379"},
-		DialTimeout: 3 * time.Second,
+		Endpoints: e.options.Addrs,
+		DialTimeout: time.Duration(e.options.Timeout) * time.Second,
 	}
 
 	if client, err = clientv3.New(config); err != nil {
