@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f2f1b18-0df1-47be-8702-a63f1587b7c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/cmd.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/generator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/generator/dir_generator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/options.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/exp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rninet.go" beforeDir="false" afterPath="$PROJECT_DIR$/rninet.go" afterDir="false" />
-    </list>
+    <list default="true" id="2f2f1b18-0df1-47be-8702-a63f1587b7c8" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,21 +14,9 @@
         <entry file="file://$PROJECT_DIR$/cmd/cmd.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="325">
-              <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="e#13#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code/generator.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="805">
-              <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
-              <folding>
-                <element signature="e#14#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,11 +105,6 @@
             </path>
             <path>
               <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rninet" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -194,7 +169,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15511727" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -491,7 +465,7 @@
     <entry file="file://$PROJECT_DIR$/cmd/cmd.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
-          <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
           <folding>
             <element signature="e#13#54#0" expanded="true" />
           </folding>
