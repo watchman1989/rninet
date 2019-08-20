@@ -3,11 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/urfave/cli"
+	"os"
+	"projects/rninet/cmd"
 	"projects/rninet/infra"
 	"projects/rninet/infra/etcd"
 	"projects/rninet/registry"
-	_ "projects/rninet/registry/consul"
-	_ "projects/rninet/registry/etcd"
+	//_ "projects/rninet/registry/consul"
+	//_ "projects/rninet/registry/etcd"
+	"runtime"
 	"time"
 )
 
@@ -129,13 +133,42 @@ func TestConsul() {
 }
 
 
+func InitEnv() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+}
+
+
+func InitArg() {
+
+}
+
+
+
+func init () {
+	InitEnv()
+	InitArg()
+
+}
+
+
+
+
 func main () {
 
 	fmt.Println("MAIN_START")
 
-	TestEtcdCom()
+	app := cli.NewApp()
+	app.Name = "rninet"
+	app.Usage = "A micro service frame"
+
+	app.Commands = cmd.Commands
 
 
-	time.Sleep(1000 * time.Second)
+	if err := app.Run(os.Args); err != nil {
+		fmt.Printf("APP_RUN_ERROR: %v\n", err)
+	}
+
+
+	//time.Sleep(1000 * time.Second)
 
 }
