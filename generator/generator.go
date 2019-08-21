@@ -1,0 +1,214 @@
+package generator
+
+import (
+	"bytes"
+	"fmt"
+	"github.com/emicklei/proto"
+	"html/template"
+	"os"
+	"os/exec"
+	"path"
+	"path/filepath"
+	"strings"
+)
+
+const (
+	PROTOC_GRPC_COMMAND = "protoc --proto_path=%s --go_out=plugins=grpc:%s %s"
+)
+
+var (
+	generator *Generator = &Generator{
+		protoInfo: new(ProtoInfo),
+	}
+	SERVER_DIR_LIST = []string {"idl", "handler", "router"}
+	CLIENT_DIR_LIST = []string {}
+)
+
+type ProtoInfo struct {
+	service *proto.Service
+	Messages []*proto.Message
+	Rpcs []*proto.RPC
+	Pack *proto.Package
+}
+
+type Generator struct {
+	options *Options
+	protoInfo *ProtoInfo
+}
+
+
+func NewGenerator (opts ...Option) *Generator {
+	generator.options = &Options{}
+	for _, opt := range opts {
+		opt(generator.options)
+	}
+
+	return generator
+}
+
+
+func (g *Generator) Gen () {
+
+	g.GenerateDir()
+	g.ParseProto()
+	g.GenerateGrpc()
+	g.GenerateServer()
+	g.GenerateRouter()
+	g.GenerateHandler()
+}
+
+
+func (g *Generator) GenerateDir () error {
+
+	fmt.Printf("Generator dirs\n")
+
+	var (
+		dirs []string
+	)
+
+	if g.options.SrvFlag {
+		dirs = SERVER_DIR_LIST
+	}
+
+	if g.options.CliFlag {
+		dirs = CLIENT_DIR_LIST
+	}
+
+	for _, dir := range dirs {
+		genPath := path.Join(g.options.Output, dir)
+
+		fmt.Printf("MKDIR: %s\n", genPath)
+
+		if err := os.MkdirAll(genPath, 0775); err != nil {
+			fmt.Printf("MKDIR %s ERROR: %v\n", genPath, err)
+			continue
+		}
+	}
+
+	return nil
+}
+
+
+func (g *Generator) GenerateGrpc () error {
+
+	fmt.Printf("Generate grpc code\n")
+
+	if _, err := os.Stat(g.options.ProtoFile); err != nil {
+		fmt.Printf("PROTO_FILE_ERROR: %v\n", err)
+		return err
+	}
+
+	commandLine := fmt.Sprintf(PROTOC_GRPC_COMMAND, filepath.Dir(g.options.ProtoFile), filepath.Join(g.options.Output, "idl"), g.options.ProtoFile)
+	command := strings.Split(commandLine, " ")[0]
+	args := strings.Split(commandLine, " ")[1:]
+	fmt.Printf("COMMAND: %s, ARGS: %v\n", command, args)
+	fmt.Printf("COMMAND_LINE: %s\n", commandLine)
+
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmdl := exec.Command(command, args...)
+
+	cmdl.Stdout = &stdout
+	cmdl.Stderr = &stderr
+
+	if err := cmdl.Run(); err != nil {
+		fmt.Printf("CMD_RUN_ERROR: %v\n", err)
+		return err
+	}
+
+	fmt.Printf("%s\n", stdout.String())
+	fmt.Printf("%s\n", stderr.String())
+
+	return nil
+}
+
+
+func (g *Generator) ParseProto () error {
+
+	fmt.Printf("Parse proto file\n")
+
+	if _, err := os.Stat(g.options.ProtoFile); err != nil {
+		fmt.Printf("PROTO_FILE_ERROR: %v\n", err)
+		return err
+	}
+
+	protoReader, _ := os.Open(g.options.ProtoFile)
+	defer protoReader.Close()
+
+	protoParser := proto.NewParser(protoReader)
+	definition, _ := protoParser.Parse()
+
+	proto.Walk(definition,
+		proto.WithService(g.handleProtoService),
+		proto.WithMessage(g.handleProtoMessage),
+		proto.WithRPC(g.handleProtoRPC),
+	)
+
+	return nil
+}
+
+
+func (g *Generator)handleProtoService (s *proto.Service) {
+	fmt.Printf("proto.Service: %s\n", s.Name)
+}
+
+
+func (g *Generator)handleProtoMessage (m *proto.Message) {
+	fmt.Printf("proto.Message: %s\n", m.Name)
+}
+
+
+func (g *Generator) handleProtoRPC (r *proto.RPC) {
+	fmt.Printf("proto.RPC: %s\n", r.Name)
+}
+
+
+func (g *Generator) GenerateServer () error {
+
+	fmt.Printf("Generate server code\n")
+
+	srvFile := filepath.Join(g.options.Output, "server.go")
+	fp, err := os.OpenFile(srvFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		fmt.Printf("OPEN_FILE %s ERROR: %v\n", srvFile, err)
+		return err
+	}
+	defer fp.Close()
+
+
+	t := template.New("server")
+	t, err = t.Parse(serverTemplate)
+	if err != nil {
+		fmt.Printf("TEMPLATE_PARSE_ERROR: %v\n", err)
+		return err
+	}
+
+	if err = t.Execute(fp, nil); err != nil {
+		fmt.Printf("TEMPLATE_EXECUTE_ERROR: %v\n", err)
+		return err
+	}
+
+	return nil
+}
+
+
+func (g *Generator) GenerateHandler () error {
+
+	fmt.Printf("Generate handler code\n")
+
+	return nil
+}
+
+
+func (g *Generator) GenerateRouter () error {
+
+	fmt.Printf("Generate router code\n")
+
+	return nil
+}
+
+
+
+
+

@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 	"github.com/urfave/cli"
-	"projects/rninet/code"
-	"projects/rninet/code/generator"
+	"projects/rninet/generator"
 )
+
 
 var (
 	Commands []cli.Command = []cli.Command {
@@ -24,6 +24,11 @@ var (
 					Usage: "client name",
 					Destination: &cliName,
 				},
+				cli.StringFlag{
+					Name: "proto, p",
+					Usage: "porot3 file",
+					Destination: &protoFile,
+				},
 			},
 			Action: NewAction,
 		},
@@ -31,6 +36,7 @@ var (
 
 	srvName string
 	cliName string
+	protoFile string
 
 )
 
@@ -40,7 +46,13 @@ func NewAction (c *cli.Context) error {
 	fmt.Printf("new server: %s, client: %s\n", srvName, cliName)
 
 	if len(srvName) != 0 {
-		code.AddGenerator("dir", &generator.DirGenerator{})
+		G := generator.NewGenerator(
+			generator.WithSrvFlag(),
+			generator.WithOutput(srvName),
+			generator.WithProtoFile(protoFile),
+		)
+
+		G.Gen()
 	}
 
 	if len(cliName) != 0 {
