@@ -25,7 +25,7 @@ var (
 )
 
 type ProtoInfo struct {
-	service *proto.Service
+	Service *proto.Service
 	Messages []*proto.Message
 	Rpcs []*proto.RPC
 	Pack *proto.Package
@@ -151,16 +151,19 @@ func (g *Generator) ParseProto () error {
 
 func (g *Generator)handleProtoService (s *proto.Service) {
 	fmt.Printf("proto.Service: %s\n", s.Name)
+	g.protoInfo.Service = s
 }
 
 
 func (g *Generator)handleProtoMessage (m *proto.Message) {
 	fmt.Printf("proto.Message: %s\n", m.Name)
+	g.protoInfo.Messages = append(g.protoInfo.Messages, m)
 }
 
 
 func (g *Generator) handleProtoRPC (r *proto.RPC) {
 	fmt.Printf("proto.RPC: %s\n", r.Name)
+	g.protoInfo.Rpcs = append(g.protoInfo.Rpcs, r)
 }
 
 
@@ -184,7 +187,7 @@ func (g *Generator) GenerateServer () error {
 		return err
 	}
 
-	if err = t.Execute(fp, nil); err != nil {
+	if err = t.Execute(fp, g.protoInfo); err != nil {
 		fmt.Printf("TEMPLATE_EXECUTE_ERROR: %v\n", err)
 		return err
 	}
@@ -197,6 +200,28 @@ func (g *Generator) GenerateHandler () error {
 
 	fmt.Printf("Generate handler code\n")
 
+	hdlFile := filepath.Join(g.options.Output, "handler", "handler.go")
+	fp, err := os.OpenFile(hdlFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		fmt.Printf("OPEN_FILE %s ERROR: %v\n", hdlFile, err)
+		return err
+	}
+	defer fp.Close()
+
+
+	t := template.New("handler")
+	t, err = t.Parse(handlerTemplate)
+	if err != nil {
+		fmt.Printf("TEMPLATE_PARSE_ERROR: %v\n", err)
+		return err
+	}
+
+	if err = t.Execute(fp, g.protoInfo); err != nil {
+		fmt.Printf("TEMPLATE_EXECUTE_ERROR: %v\n", err)
+		return err
+	}
+
+
 	return nil
 }
 
@@ -204,6 +229,27 @@ func (g *Generator) GenerateHandler () error {
 func (g *Generator) GenerateRouter () error {
 
 	fmt.Printf("Generate router code\n")
+
+	rtFile := filepath.Join(g.options.Output, "router", "router.go")
+	fp, err := os.OpenFile(rtFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		fmt.Printf("OPEN_FILE %s ERROR: %v\n", rtFile, err)
+		return err
+	}
+	defer fp.Close()
+
+
+	t := template.New("router")
+	t, err = t.Parse(routerTemplate)
+	if err != nil {
+		fmt.Printf("TEMPLATE_PARSE_ERROR: %v\n", err)
+		return err
+	}
+
+	if err = t.Execute(fp, g.protoInfo); err != nil {
+		fmt.Printf("TEMPLATE_EXECUTE_ERROR: %v\n", err)
+		return err
+	}
 
 	return nil
 }

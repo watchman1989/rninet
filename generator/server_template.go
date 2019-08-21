@@ -26,7 +26,7 @@ func main() {
 	
 	srv := grpc.NewServer()
 	
-	{{}}.Register{{}}(srv, new({{}}))
+	{{}}.Register{{.Service.Name}}Server(srv, new({{}}))
 
 	srv.Serve(lis)
 

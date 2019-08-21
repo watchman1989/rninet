@@ -1,0 +1,6 @@
+package generator
+
+
+var routerTemplate = `
+
+`
