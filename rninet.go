@@ -88,7 +88,7 @@ func TestEtcdCom() {
 	infra.AddStarter(context.Background(),
 		"etcd",
 		&etcd.EtcdStarter{},
-		etcd.WithAddrs([]string{"10.42.6.161"}),
+		etcd.WithAddrs([]string{"127.0.0.1:2379"}),
 		etcd.WithTimeout(3),
 		)
 
