@@ -7,7 +7,6 @@ import (
 	"html/template"
 	"os"
 	"os/exec"
-	"path"
 	"path/filepath"
 	"strings"
 )
@@ -19,8 +18,9 @@ const (
 var (
 	generator *Generator = &Generator{
 		protoInfo: new(ProtoInfo),
+		baseInfo: new(BaseInfo),
 	}
-	SERVER_DIR_LIST = []string {"idl", "handler", "router"}
+	SERVER_DIR_LIST = []string {"proto", "handler", "router"}
 	CLIENT_DIR_LIST = []string {}
 )
 
@@ -28,12 +28,20 @@ type ProtoInfo struct {
 	Service *proto.Service
 	Messages []*proto.Message
 	Rpcs []*proto.RPC
-	Pack *proto.Package
+	Package *proto.Package
 }
+
+type BaseInfo struct {
+	Gopath string
+	Rpath string
+	Fpath string
+}
+
 
 type Generator struct {
 	options *Options
 	protoInfo *ProtoInfo
+	baseInfo *BaseInfo
 }
 
 
@@ -43,6 +51,12 @@ func NewGenerator (opts ...Option) *Generator {
 		opt(generator.options)
 	}
 
+	generator.ParseProto()
+	generator.GetBaseInfo()
+
+	fmt.Println(generator.protoInfo)
+	fmt.Println(generator.baseInfo)
+
 	return generator
 }
 
@@ -50,7 +64,6 @@ func NewGenerator (opts ...Option) *Generator {
 func (g *Generator) Gen () {
 
 	g.GenerateDir()
-	g.ParseProto()
 	g.GenerateGrpc()
 	g.GenerateServer()
 	g.GenerateRouter()
@@ -75,7 +88,7 @@ func (g *Generator) GenerateDir () error {
 	}
 
 	for _, dir := range dirs {
-		genPath := path.Join(g.options.Output, dir)
+		genPath := filepath.Join(g.baseInfo.Fpath, dir)
 
 		fmt.Printf("MKDIR: %s\n", genPath)
 
@@ -98,7 +111,13 @@ func (g *Generator) GenerateGrpc () error {
 		return err
 	}
 
-	commandLine := fmt.Sprintf(PROTOC_GRPC_COMMAND, filepath.Dir(g.options.ProtoFile), filepath.Join(g.options.Output, "idl"), g.options.ProtoFile)
+	protoPath := filepath.Join(g.baseInfo.Fpath, "proto", g.protoInfo.Package)
+	if err := os.MkdirAll(protoPath, 0775); err != nil {
+		fmt.Printf("MKDIR %s ERROR: %v\n", err)
+		return err
+	}
+
+	commandLine := fmt.Sprintf(PROTOC_GRPC_COMMAND, filepath.Dir(g.options.ProtoFile), protoPath, g.options.ProtoFile)
 	command := strings.Split(commandLine, " ")[0]
 	args := strings.Split(commandLine, " ")[1:]
 	fmt.Printf("COMMAND: %s, ARGS: %v\n", command, args)
@@ -124,6 +143,20 @@ func (g *Generator) GenerateGrpc () error {
 }
 
 
+func (g *Generator) GetBaseInfo () error {
+
+	g.baseInfo.Gopath = filepath.Join(os.Getenv("GOPATH"), "src")
+	if strings.HasPrefix(g.options.Output, g.baseInfo.Gopath) {
+		g.baseInfo.Rpath = strings.Replace(g.options.Output, g.baseInfo.Gopath, "", 1)
+		g.baseInfo.Rpath = g.options.Output
+	} else {
+		g.baseInfo.Rpath = filepath.Join(g.baseInfo.Gopath, g.options.Output)
+	}
+
+	return nil
+}
+
+
 func (g *Generator) ParseProto () error {
 
 	fmt.Printf("Parse proto file\n")
@@ -143,6 +176,7 @@ func (g *Generator) ParseProto () error {
 		proto.WithService(g.handleProtoService),
 		proto.WithMessage(g.handleProtoMessage),
 		proto.WithRPC(g.handleProtoRPC),
+		proto.WithPackage(g.handleProtoPackage),
 	)
 
 	return nil
@@ -165,6 +199,12 @@ func (g *Generator) handleProtoRPC (r *proto.RPC) {
 	fmt.Printf("proto.RPC: %s\n", r.Name)
 	g.protoInfo.Rpcs = append(g.protoInfo.Rpcs, r)
 }
+
+func (g *Generator) handleProtoPackage (r *proto.Package) {
+	fmt.Printf("proto.Package: %s\n", r.Name)
+	g.protoInfo.Package = r
+}
+
 
 
 func (g *Generator) GenerateServer () error {
