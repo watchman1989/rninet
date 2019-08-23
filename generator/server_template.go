@@ -8,15 +8,17 @@ import (
 	"fmt"
 	"net"
 	"google.golang.org/grpc"
+	"{{.Rpath}}/router"
 )
 
 var (
 	port = ":10001"
+	routerServer = &router.RouterServer{}
 )
 
 func main() {
 
-	fmt.Printf("")
+	fmt.Printf("START_SERVER\n")
 	
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
@@ -26,11 +28,9 @@ func main() {
 	
 	srv := grpc.NewServer()
 	
-	{{}}.Register{{.Service.Name}}Server(srv, new({{}}))
+	{{.Package.Name}}.Register{{.Service.Name}}Server(srv, routerServer)
 
 	srv.Serve(lis)
 
 }
-
-
 `
