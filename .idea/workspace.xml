@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f2f1b18-0df1-47be-8702-a63f1587b7c8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/exp.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/srvname/srvname.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/generator/generator.go" beforeDir="false" afterPath="$PROJECT_DIR$/generator/generator.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generator/handler_template.go" beforeDir="false" afterPath="$PROJECT_DIR$/generator/handler_template.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generator/router_template.go" beforeDir="false" afterPath="$PROJECT_DIR$/generator/router_template.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generator/server_template.go" beforeDir="false" afterPath="$PROJECT_DIR$/generator/server_template.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,15 +16,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/generator.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="245" column="48" selection-start-line="245" selection-start-column="48" selection-end-line="245" selection-end-column="48" />
-              <folding>
-                <element signature="e#19#144#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="5145">
+              <caret line="304" selection-start-line="304" selection-end-line="304" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/middleware.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="649">
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
@@ -31,26 +38,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/router_template.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/generator/handler_template.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+            <state relative-caret-position="814">
+              <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../github.com/emicklei/proto/walk.go">
+        <entry file="file://$PROJECT_DIR$/generator/handler_template.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+            <state relative-caret-position="154">
+              <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -58,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/server_template.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="10" column="23" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="23" />
+            <state relative-caret-position="275">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -128,21 +126,22 @@
         <option value="$PROJECT_DIR$/code/generator/dir_generator.go" />
         <option value="$PROJECT_DIR$/generator/options.go" />
         <option value="$PROJECT_DIR$/cmd/cmd.go" />
-        <option value="$PROJECT_DIR$/example/exp.go" />
         <option value="$PROJECT_DIR$/generator/server.go" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/rninet.go" />
-        <option value="$PROJECT_DIR$/../../github.com/emicklei/proto/walk.go" />
         <option value="$PROJECT_DIR$/generator/server_template.go" />
-        <option value="$PROJECT_DIR$/generator/generator.go" />
-        <option value="$PROJECT_DIR$/generator/router_template.go" />
         <option value="$PROJECT_DIR$/generator/handler_template.go" />
+        <option value="$PROJECT_DIR$/../../github.com/emicklei/proto/walk.go" />
+        <option value="$PROJECT_DIR$/middleware/middleware_test.go" />
+        <option value="$PROJECT_DIR$/example/exp.go" />
+        <option value="$PROJECT_DIR$/middleware/middleware.go" />
+        <option value="$PROJECT_DIR$/generator/router_template.go" />
+        <option value="$PROJECT_DIR$/generator/generator.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -154,7 +153,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -164,17 +162,13 @@
             </path>
             <path>
               <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rninet" type="462c0819:PsiDirectoryNode" />
-              <item name="generator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -185,7 +179,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../github.com/ibinarytree/koala" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -233,18 +227,47 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="TestMiddleware in projects/rninet/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="rninet" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="projects/rninet/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestMiddleware$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build exp.go" />
+        <item itemvalue="Go Test.TestMiddleware in projects/rninet/middleware" />
         <item itemvalue="Go Build.go build rninet.go" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="TestHistory">
+    <history-entry file="TestMiddleware_in_projects_rninet_middleware - 2019.08.24 at 19h 18m 54s.xml">
+      <configuration name="TestMiddleware in projects/rninet/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMiddleware_in_projects_rninet_middleware - 2019.08.24 at 19h 34m 36s.xml">
+      <configuration name="TestMiddleware in projects/rninet/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMiddleware_in_projects_rninet_middleware - 2019.08.24 at 19h 35m 05s.xml">
+      <configuration name="TestMiddleware in projects/rninet/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMiddleware_in_projects_rninet_middleware - 2019.08.24 at 19h 36m 15s.xml">
+      <configuration name="TestMiddleware in projects/rninet/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMiddleware_in_projects_rninet_middleware - 2019.08.24 at 19h 43m 29s.xml">
+      <configuration name="TestMiddleware in projects/rninet/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15991472" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25692964" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -257,7 +280,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info active="true" anchor="bottom" id="Statistic" order="10" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Statistic" order="10" weight="0.329718" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -292,21 +315,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../github.com/hashicorp/consul/api/agent.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="213" column="34" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/registry/consul/consul.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/components.go" />
     <entry file="file://$PROJECT_DIR$/registry/service.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -419,20 +427,12 @@
     <entry file="file://$PROJECT_DIR$/code/options.go" />
     <entry file="file://$PROJECT_DIR$/code/generator.go" />
     <entry file="file://$PROJECT_DIR$/code/generator/dir_generator.go" />
-    <entry file="file://$PROJECT_DIR$/example/srvname/srvname.go" />
     <entry file="file://$USER_HOME$/src/path/path.go" />
     <entry file="file://$USER_HOME$/src/bytes/buffer.go" />
     <entry file="file://$PROJECT_DIR$/test/idl/test.pb.go" />
     <entry file="file://$PROJECT_DIR$/generator/options.go" />
     <entry file="file://$USER_HOME$/src/html/template/template.go" />
     <entry file="file://$PROJECT_DIR$/test/server.go" />
-    <entry file="file://$PROJECT_DIR$/example/exp.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmd/cmd.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="407">
@@ -467,37 +467,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../github.com/emicklei/proto/walk.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../src/os/path.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/proto/greet/test.pb.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../src/os/env.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../src/strings/strings.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="849" column="46" selection-start-line="849" selection-start-column="40" selection-end-line="849" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/src/os/path.go" />
+    <entry file="file://$PROJECT_DIR$/test/proto/greet/test.pb.go" />
+    <entry file="file://$USER_HOME$/src/os/env.go" />
+    <entry file="file://$USER_HOME$/src/strings/strings.go" />
     <entry file="file://$PROJECT_DIR$/../../github.com/emicklei/proto/service.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -512,34 +485,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/generator.go">
+    <entry file="file://$PROJECT_DIR$/../../github.com/emicklei/proto/walk.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="245" column="48" selection-start-line="245" selection-start-column="48" selection-end-line="245" selection-end-column="48" />
-          <folding>
-            <element signature="e#19#144#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1027">
+          <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/server_template.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="23" />
+        <state relative-caret-position="275">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/router_template.go">
+    <entry file="file://C:/Go/src/testing/testing.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="40" />
+        <state relative-caret-position="22">
+          <caret line="829" selection-start-line="829" selection-end-line="829" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/middleware_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+          <folding>
+            <element signature="e#20#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/exp.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/handler_template.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
+        <state relative-caret-position="154">
           <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/srvname/srvname.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/router_template.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/middleware.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/generator.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5145">
+          <caret line="304" selection-start-line="304" selection-end-line="304" />
         </state>
       </provider>
     </entry>

@@ -302,8 +302,3 @@ func (g *Generator) GenerateRouter () error {
 
 	return nil
 }
-
-
-
-
-
