@@ -3,6 +3,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"github.com/watchman1989/rninet/example/new/server/proto/greet"
 )
 
@@ -20,6 +21,9 @@ func (s *WelcomeHandler) Check (ctx context.Context, req *greet.GreetRequest) (e
 func (s *WelcomeHandler) Run (ctx context.Context, req *greet.GreetRequest) (rsp *greet.GreetResponse, err error) {
 	
 	//work code
+
+	fmt.Println("Hello: ", req.Name)
+	rsp = &greet.GreetResponse{Status: 0, Reply: "Welcome: " + req.Name}
 
 	return rsp, err
 }
