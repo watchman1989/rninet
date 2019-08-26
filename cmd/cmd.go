@@ -56,7 +56,12 @@ func NewAction (c *cli.Context) error {
 	}
 
 	if len(cliName) != 0 {
+		G := generator.NewGenerator(
+			generator.WithCliFlag(),
+			generator.WithOutput(cliName),
+		)
 
+		G.Gen()
 	}
 
 

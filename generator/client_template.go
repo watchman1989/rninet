@@ -1,9 +1,12 @@
+package generator
+
+var clientTemplate = `
 package main
 
 import (
 	"context"
 	"fmt"
-	"github.com/watchman1989/rninet/example/new/server/proto/greet"
+	"{{.Rpath}}/proto/{{.Package.Name}}"
 	"google.golang.org/grpc"
 	"os"
 )
@@ -23,14 +26,8 @@ func main() {
 
 	client := greet.NewGreetingClient(conn)
 
-	name := os.Args[1]
-
-	rsp, err := client.Hello(context.Background(), &greet.GreetRequest{Name: name})
-	if err != nil {
-		fmt.Printf("CALL_HELLO_ERROR: %v\n", err)
-		return
-	}
-
-	fmt.Printf("RESPONSE: %d %s\n", rsp.Status, rsp.Reply)
+	//Call rpc function
 
 }
+
+`

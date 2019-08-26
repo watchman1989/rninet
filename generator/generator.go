@@ -64,11 +64,18 @@ func NewGenerator (opts ...Option) *Generator {
 
 func (g *Generator) Gen () {
 
-	_ = g.GenerateDir()
-	_ = g.GenerateGrpc()
-	_ = g.GenerateServer()
-	_ = g.GenerateRouter()
-	_ = g.GenerateHandler()
+	if g.options.SrvFlag {
+		_ = g.GenerateServerDir()
+		_ = g.GenerateGrpc()
+		_ = g.GenerateServer()
+		_ = g.GenerateRouter()
+		_ = g.GenerateHandler()
+	}
+
+	if g.options.CliFlag {
+		_ = g.GenerateClientDir()
+		_ = g.GenerateClient()
+	}
 }
 
 
@@ -138,23 +145,13 @@ func (g *Generator) handleProtoPackage (r *proto.Package) {
 
 
 
-func (g *Generator) GenerateDir () error {
+func (g *Generator) GenerateServerDir () error {
 
-	fmt.Printf("Generator dirs\n")
+	fmt.Printf("Generator server dirs\n")
 
-	var (
-		dirs []string
-	)
+	_ = os.MkdirAll(g.meta.Fpath, 0775)
 
-	if g.options.SrvFlag {
-		dirs = SERVER_DIR_LIST
-	}
-
-	if g.options.CliFlag {
-		dirs = CLIENT_DIR_LIST
-	}
-
-	for _, dir := range dirs {
+	for _, dir := range SERVER_DIR_LIST {
 		genPath := filepath.Join(g.meta.Fpath, dir)
 
 		fmt.Printf("MKDIR: %s\n", genPath)
@@ -292,6 +289,56 @@ func (g *Generator) GenerateRouter () error {
 
 	t := template.New("router")
 	t, err = t.Parse(routerTemplate)
+	if err != nil {
+		fmt.Printf("TEMPLATE_PARSE_ERROR: %v\n", err)
+		return err
+	}
+
+	if err = t.Execute(fp, g.meta); err != nil {
+		fmt.Printf("TEMPLATE_EXECUTE_ERROR: %v\n", err)
+		return err
+	}
+
+	return nil
+}
+
+
+func (g *Generator) GenerateClientDir () error {
+
+	fmt.Printf("Generator client dirs\n")
+
+	_ = os.MkdirAll(g.meta.Fpath, 0775)
+
+	for _, dir := range CLIENT_DIR_LIST {
+		genPath := filepath.Join(g.meta.Fpath, dir)
+
+		fmt.Printf("MKDIR: %s\n", genPath)
+
+		if err := os.MkdirAll(genPath, 0775); err != nil {
+			fmt.Printf("MKDIR %s ERROR: %v\n", genPath, err)
+			continue
+		}
+	}
+
+	return nil
+}
+
+
+func (g *Generator) GenerateClient () error {
+
+	fmt.Printf("Generate client code\n")
+
+	srvFile := filepath.Join(g.meta.Fpath, "client.go")
+	fp, err := os.OpenFile(srvFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		fmt.Printf("OPEN_FILE %s ERROR: %v\n", srvFile, err)
+		return err
+	}
+	defer fp.Close()
+
+
+	t := template.New("client")
+	t, err = t.Parse(clientTemplate)
 	if err != nil {
 		fmt.Printf("TEMPLATE_PARSE_ERROR: %v\n", err)
 		return err
