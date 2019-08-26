@@ -5,7 +5,7 @@ import (
 	"fmt"
 	consulapi "github.com/hashicorp/consul/api"
 	"google.golang.org/grpc/health/grpc_health_v1"
-	"projects/rninet/registry"
+	"github.com/watchman1989/rninet/registry"
 	"time"
 )
 

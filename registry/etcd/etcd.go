@@ -9,8 +9,8 @@ import (
 	"go.etcd.io/etcd/clientv3"
 	"go.etcd.io/etcd/mvcc/mvccpb"
 	"path"
-	"projects/rninet/common/utils"
-	"projects/rninet/registry"
+	"github.com/watchman1989/rninet/common/utils"
+	"github.com/watchman1989/rninet/registry"
 	"sync"
 	"time"
 )

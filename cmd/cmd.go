@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/urfave/cli"
-	"projects/rninet/generator"
+	"github.com/watchman1989/rninet/generator"
 )
 
 
