@@ -1,15 +1,11 @@
-package generator
 
-
-
-var serverTemplate = `
 package main
 import (
 	"fmt"
 	"net"
 	"google.golang.org/grpc"
-	"{{.Rpath}}/router"
-	"{{.Rpath}}/proto/{{.Package.Name}}"
+	"github.com/watchman1989/rninet/example/new/server/router"
+	"github.com/watchman1989/rninet/example/new/server/proto/greet"
 )
 
 var (
@@ -29,9 +25,8 @@ func main() {
 	
 	srv := grpc.NewServer()
 	
-	{{.Package.Name}}.Register{{.Service.Name}}Server(srv, routerServer)
+	greet.RegisterGreetingServer(srv, routerServer)
 
 	srv.Serve(lis)
 
 }
-`

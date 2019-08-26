@@ -35,7 +35,7 @@ func main () {
 
 	app := cli.NewApp()
 	app.Name = "rninet"
-	app.Usage = "A micro service frame"
+	app.Usage = "micro service frame"
 
 	app.Commands = cmd.Commands
 

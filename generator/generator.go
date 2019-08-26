@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/emicklei/proto"
+	"github.com/watchman1989/rninet/common/global"
 	"html/template"
 	"os"
 	"os/exec"
@@ -55,7 +56,7 @@ func NewGenerator (opts ...Option) *Generator {
 	_ = generator.ParseProto()
 	_ = generator.GetPathInfo()
 
-	fmt.Println(generator.meta)
+	//fmt.Println(generator.meta)
 
 	return generator
 }
@@ -73,13 +74,14 @@ func (g *Generator) Gen () {
 
 func (g *Generator) GetPathInfo () error {
 
-	goPath := filepath.Join(os.Getenv("GOPATH"), "src")
-	if strings.HasPrefix(g.options.Output, goPath) {
-		g.meta.Rpath = strings.Replace(g.options.Output, goPath, "", 1)
+	srcPath := filepath.Join(os.Getenv("GOPATH"), "src") + global.SLASH
+	fmt.Printf("++++++++++++SRC_PATH: %s\n", srcPath)
+	if strings.HasPrefix(g.options.Output, srcPath) {
+		g.meta.Rpath = strings.Replace(strings.Replace(g.options.Output, srcPath, "", 1), "\\", "/", -1)
 		g.meta.Fpath = g.options.Output
 	} else {
-		g.meta.Rpath = g.options.Output
-		g.meta.Fpath = filepath.Join(goPath, g.options.Output)
+		g.meta.Rpath = strings.Replace(g.options.Output, "\\", "/", -1)
+		g.meta.Fpath = filepath.Join(srcPath, g.options.Output)
 	}
 
 	return nil
@@ -185,7 +187,7 @@ func (g *Generator) GenerateGrpc () error {
 	commandLine := fmt.Sprintf(PROTOC_GRPC_COMMAND, filepath.Dir(g.options.ProtoFile), protoPath, g.options.ProtoFile)
 	command := strings.Split(commandLine, " ")[0]
 	args := strings.Split(commandLine, " ")[1:]
-	fmt.Printf("COMMAND: %s, ARGS: %v\n", command, args)
+	//fmt.Printf("COMMAND: %s, ARGS: %v\n", command, args)
 	fmt.Printf("COMMAND_LINE: %s\n", commandLine)
 
 	var stdout bytes.Buffer
@@ -243,7 +245,7 @@ func (g *Generator) GenerateHandler () error {
 
 	for _, rpc := range g.meta.Rpcs {
 
-		hdlFile := filepath.Join(g.meta.Fpath, "handler", fmt.Sprintf("handle_%s.go", rpc.Name))
+		hdlFile := filepath.Join(g.meta.Fpath, "handler", fmt.Sprintf("handle_%s.go", strings.ToLower(rpc.Name)))
 		fp, err := os.OpenFile(hdlFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0755)
 		if err != nil {
 			fmt.Printf("OPEN_FILE %s ERROR: %v\n", hdlFile, err)

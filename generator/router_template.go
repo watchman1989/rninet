@@ -7,8 +7,8 @@ package router
 import (
 	"context"
 	"github.com/watchman1989/rninet/middleware"
-	"{{.Rpath}}/router"
 	"{{.Rpath}}/proto/{{.Package.Name}}"
+	"{{.Rpath}}/handler"
 )
 
 type RouterServer struct {}
@@ -18,7 +18,7 @@ func (s *RouterServer) {{.Name}} (ctx context.Context, req *{{$.Package.Name}}.{
 	
 	middlewareFunction := middleware.InsertMiddleware(middleware{{.Name}})
 	middlewareRsp, err := middlewareFunction(context.Background(), req)
-	rsp := middlewareRsp.(*{{$.Package.Name}}.{{.ReturnsType}})
+	rsp = middlewareRsp.(*{{$.Package.Name}}.{{.ReturnsType}})
 
 	return rsp, err
 }
