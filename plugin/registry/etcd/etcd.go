@@ -6,11 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/watchman1989/rninet/common/utils"
+	"github.com/watchman1989/rninet/plugin/registry"
 	"go.etcd.io/etcd/clientv3"
 	"go.etcd.io/etcd/mvcc/mvccpb"
 	"path"
-	"github.com/watchman1989/rninet/common/utils"
-	"github.com/watchman1989/rninet/registry"
 	"sync"
 	"time"
 )

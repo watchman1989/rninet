@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f2f1b18-0df1-47be-8702-a63f1587b7c8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/example/infra_example/etcd_com.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/registry_example/consulregistry/consulregistry.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/registry_example/etcdregistry/etcdregistry.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/cmd.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/cmd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/consul/consul.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/consul/consul.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/etcd/etcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/etcd/etcd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/consul/consul.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/consul/consul.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/consul/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/consul/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/etcd/etcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/etcd/etcd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/etcd/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/etcd/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/options.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/plugins.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/plugins.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/registry.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/registry.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/plugin/registry/service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rninet.go" beforeDir="false" afterPath="$PROJECT_DIR$/rninet.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,7 +23,53 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rninet.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+              <folding>
+                <element signature="e#14#371#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/infra_example/etcd_com.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+              <folding>
+                <element signature="e#14#76#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/registry_example/consulregistry/consulregistry.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-115">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <folding>
+                <element signature="e#14#81#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/registry_example/etcdregistry/etcdregistry.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -34,9 +88,11 @@
       <find>allServices</find>
       <find>path.</find>
       <find>Pack</find>
+      <find>projects</find>
     </findStrings>
     <replaceStrings>
       <replace>RNINET_SERVICE_PATH</replace>
+      <replace>github.com/watchman1989</replace>
     </replaceStrings>
   </component>
   <component name="GOROOT" path="C:\Go" />
@@ -86,10 +142,13 @@
         <option value="$PROJECT_DIR$/middleware/middleware.go" />
         <option value="$PROJECT_DIR$/generator/router_template.go" />
         <option value="$PROJECT_DIR$/generator/generator.go" />
-        <option value="$PROJECT_DIR$/rninet.go" />
         <option value="$PROJECT_DIR$/registry/etcd/etcd.go" />
         <option value="$PROJECT_DIR$/registry/consul/consul.go" />
         <option value="$PROJECT_DIR$/cmd/cmd.go" />
+        <option value="$PROJECT_DIR$/example/register_server/etcd_registry/etcdregistry.go" />
+        <option value="$PROJECT_DIR$/example/register_server/consul_registry/consulregistry.go" />
+        <option value="$PROJECT_DIR$/example/infra_example/etcd_com.go" />
+        <option value="$PROJECT_DIR$/rninet.go" />
       </list>
     </option>
   </component>
@@ -113,6 +172,22 @@
             <path>
               <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
               <item name="rninet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rninet" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rninet" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="infra_example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rninet" type="462c0819:PsiDirectoryNode" />
+              <item name="plugin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rninet" type="b2602c69:ProjectViewProjectNode" />
@@ -145,6 +220,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Go\GOPATH\src\github.com\watchman1989\rninet\plugin" />
       <recent name="C:\Users\flame\GOPATH\src\projects\rninet\registry" />
       <recent name="C:\Users\flame\GOPATH\src\projects\rninet\registry\etcd" />
     </key>
@@ -218,12 +294,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2595949" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2595949" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -267,9 +344,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../github.com/garyburd/redigo/redis/pool.go" />
-    <entry file="file://$PROJECT_DIR$/../../github.com/urfave/cli/flag_generated.go" />
-    <entry file="file://$PROJECT_DIR$/../../github.com/urfave/cli/command.go" />
     <entry file="file://$PROJECT_DIR$/infra/starter.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
@@ -320,21 +394,14 @@
     <entry file="file://$PROJECT_DIR$/middleware/middleware_test.go" />
     <entry file="file://$PROJECT_DIR$/example/exp.go" />
     <entry file="file://$PROJECT_DIR$/example/srvname/srvname.go" />
-    <entry file="file://$PROJECT_DIR$/rninet.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1800">
-          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/registry/service.go">
+    <entry file="file://$PROJECT_DIR$/plugin/registry/service.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/registry/registry.go">
+    <entry file="file://$PROJECT_DIR$/plugin/registry/registry.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="80" />
@@ -344,7 +411,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/registry/plugins.go">
+    <entry file="file://$PROJECT_DIR$/plugin/registry/plugins.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1704">
           <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
@@ -354,24 +421,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/registry/options.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/registry/etcd/etcd.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#15#213#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/registry/consul/consul.go">
+    <entry file="file://$PROJECT_DIR$/plugin/registry/consul/consul.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
@@ -472,6 +522,57 @@
           <caret line="304" selection-start-line="304" selection-end-line="304" />
           <folding>
             <element signature="e#19#136#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin/registry/options.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin/registry/etcd/etcd.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/registry_example/consulregistry/consulregistry.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-115">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding>
+            <element signature="e#14#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/registry_example/etcdregistry/etcdregistry.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/infra_example/etcd_com.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding>
+            <element signature="e#14#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rninet.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#14#371#0" expanded="true" />
           </folding>
         </state>
       </provider>

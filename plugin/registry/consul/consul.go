@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	consulapi "github.com/hashicorp/consul/api"
+	"github.com/watchman1989/rninet/plugin/registry"
 	"google.golang.org/grpc/health/grpc_health_v1"
-	"github.com/watchman1989/rninet/registry"
 	"time"
 )
 

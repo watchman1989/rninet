@@ -27,11 +27,11 @@ func (p *PluginManager) registerPlugin (plugin Registry) (error) {
 	p.lock.Lock()
 	defer  p.lock.Unlock()
 
-	if _, ok = p.plugins[plugin.Name()]; ok {
+	if _, ok = p.plugins[Name()]; ok {
 		err = errors.New("PLUGIN_IS_EXISTS")
 		return err
 	}
-	p.plugins[plugin.Name()] = plugin
+	p.plugins[Name()] = plugin
 
 	return nil
 }
@@ -39,8 +39,8 @@ func (p *PluginManager) registerPlugin (plugin Registry) (error) {
 func (p *PluginManager) initRegister (ctx context.Context, name string, opts ...Option) (Registry, error) {
 
 	var (
-		err error
-		ok bool
+		err    error
+		ok     bool
 		plugin Registry
 	)
 	p.lock.Lock()
@@ -51,7 +51,7 @@ func (p *PluginManager) initRegister (ctx context.Context, name string, opts ...
 		return nil, err
 	}
 
-	err = plugin.Init(ctx, opts...)
+	err = Init(ctx, opts...)
 
 	return plugin, nil
 }
