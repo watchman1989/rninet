@@ -2,6 +2,7 @@ package generator
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/emicklei/proto"
 	"github.com/watchman1989/rninet/common/global"
@@ -40,6 +41,7 @@ type RpcMeta struct {
 	Rpath string
 	Fpath string
 }
+
 
 type Generator struct {
 	options *Options
@@ -350,4 +352,32 @@ func (g *Generator) GenerateClient () error {
 	}
 
 	return nil
+}
+
+
+type MiddlewareMeta struct {
+	ServiceName string
+	Method string
+}
+
+type middlewareMetaContext struct {}
+
+
+func GetMiddlewareMeta (ctx context.Context) *MiddlewareMeta {
+
+	meta, ok := ctx.Value(middlewareMetaContext{}).(*MiddlewareMeta)
+	if !ok {
+		meta = &MiddlewareMeta{}
+	}
+
+	return meta
+}
+
+func InitMiddlewareMeta (ctx context.Context, srvName string, method string) context.Context {
+	meta := &MiddlewareMeta{
+		ServiceName: srvName,
+		Method: method,
+	}
+
+	return context.WithValue(ctx, middlewareMetaContext{}, meta)
 }
