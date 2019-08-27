@@ -25,9 +25,14 @@ var (
 					Destination: &cliName,
 				},
 				cli.StringFlag{
-					Name: "proto, p",
+					Name: "proto_file",
 					Usage: "porot3 file",
 					Destination: &protoFile,
+				},
+				cli.IntFlag{
+					Name: "prometheus",
+					Usage: "use prometheus",
+					Destination: &prometheusPort,
 				},
 			},
 			Action: NewAction,
@@ -37,7 +42,7 @@ var (
 	srvName string
 	cliName string
 	protoFile string
-
+	prometheusPort int
 )
 
 
@@ -50,6 +55,7 @@ func NewAction (c *cli.Context) error {
 			generator.WithSrvFlag(),
 			generator.WithOutput(srvName),
 			generator.WithProtoFile(protoFile),
+			generator.WithPrometheusPort(prometheusPort),
 		)
 
 		G.Gen()

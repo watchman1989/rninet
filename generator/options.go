@@ -5,6 +5,7 @@ type Options struct {
 	ProtoFile string
 	CliFlag bool
 	SrvFlag bool
+	PrometheusPort int
 }
 
 
@@ -32,5 +33,11 @@ func WithSrvFlag () Option {
 func WithProtoFile (protoFile string) Option {
 	return func(opts *Options) {
 		opts.ProtoFile = protoFile
+	}
+}
+
+func WithPrometheusPort (prometheusPort int) Option {
+	return func (opts *Options) {
+		opts.PrometheusPort = prometheusPort
 	}
 }
