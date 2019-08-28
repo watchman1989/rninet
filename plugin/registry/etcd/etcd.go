@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/watchman1989/rninet/common/utils"
+	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
 	"go.etcd.io/etcd/clientv3"
 	"go.etcd.io/etcd/mvcc/mvccpb"
@@ -47,7 +48,7 @@ func init () {
 
 	fmt.Println("ETCD_INIT")
 
-	registry.RegisterPlugin(etcdRegistry)
+	plugin.InstallPlugin("registry", etcdRegistry)
 
 	fmt.Println("ETCD_INIT_OVER")
 }

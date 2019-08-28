@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
 	"time"
 )
 
 func main() {
-	reg, err := registry.InitRegistry(
+	reg, err := plugin.InitRegistry(
 		context.TODO(),
 		"etcd",
 		registry.WithAddrs([]string{"127.0.0.1:2379"}),
@@ -20,7 +21,7 @@ func main() {
 
 	fmt.Println("INIT_REGISTRY_OVER")
 
-	fmt.Println("PULUGINS: ", registry.GetPlugins())
+	fmt.Println("PULUGINS: ", plugin.GetPlugins())
 
 	if err != nil {
 		fmt.Printf("INIT_REGISTRY_ERROR: %v\n", err)

@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
 	"time"
 )
 
 func main() {
 
-	reg, err := registry.InitRegistry(
+	reg, err := plugin.InitRegistry(
 		context.TODO(),
 		"consul",
 		registry.WithAddrs([]string{"127.0.0.1:8500"}),
@@ -24,7 +25,7 @@ func main() {
 
 	fmt.Println("INIT_CONSUL_REGISTRY_OVER")
 
-	fmt.Println("PULUGINS: ", registry.GetPlugins())
+	fmt.Println("PULUGINS: ", plugin.GetPlugins())
 
 	s0 := registry.Service{Name: "test_consul", Ip: "192.168.1.10", Port: 5000}
 	reg.Register(context.TODO(), &s0)
@@ -37,6 +38,4 @@ func main() {
 
 	s1 := registry.Service{Name: "test_consul", Ip: "192.168.1.14", Port: 5005}
 	reg.Register(context.TODO(), &s1)
-
-
 }

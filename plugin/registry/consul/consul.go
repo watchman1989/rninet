@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	consulapi "github.com/hashicorp/consul/api"
+	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"time"
@@ -22,7 +23,7 @@ type ConsulRegistry struct {
 func init () {
 	fmt.Println("CONSUL_INIT")
 
-	registry.RegisterPlugin(consulRegistry)
+	plugin.InstallPlugin("registry", consulRegistry)
 
 	fmt.Println("CONSUL_INIT_OVER")
 }

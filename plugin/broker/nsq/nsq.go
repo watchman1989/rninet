@@ -2,23 +2,47 @@ package nsq
 
 import (
 	"context"
-	"fmt"
 	"github.com/nsqio/go-nsq"
-	"time"
 )
 
+type nsqBroker struct {
+	options *Options
+	producer *nsq.Producer
+}
 
-var (
-	nsqProducerComponent *NsqProducerComponent = &NsqProducerComponent{}
-	nsqConsumerComponent *NsqConsumerComponent = &NsqConsumerComponent{}
-)
 
+func (n *nsqBroker) Init (ctx context.Context, opts ...Option) error {
+
+	var (
+		err error
+		config *nsq.Config
+	)
+
+	n.options = &Options{}
+	for _, opt := range opts {
+		opt(n.options)
+	}
+
+	config = nsq.NewConfig()
+
+	n.producer, err = nsq.NewProducer(n.options.Addr, config)
+	if err != nil {
+		return err
+	}
+
+
+	return nil
+}
+
+
+/*
 type NsqProducerComponent struct {
 	Producer *nsq.Producer
 }
 
 type NsqConsumerComponent struct {
 	Consumer *nsq.Consumer
+	ReceiveCount int64
 }
 
 type NsqProducerStarter struct {
@@ -44,12 +68,23 @@ func (n *NsqProducerStarter) Init (ctx context.Context, opts ...interface{}) err
 
 	config = nsq.NewConfig()
 
-	producer, err = nsq.NewProducer(n.options.Addr, config)
+	producer, err = nsq.NewProducer(Addr, config)
 	if err != nil {
 		return err
 	}
 
-	nsqProducerComponent.Producer = producer
+
+
+	return nil
+}
+
+
+func (n *NsqProducerComponent) Publish (topic string, message []byte) error {
+
+	err := n.Producer.Publish(topic, message)
+	if err != nil {
+		return nil
+	}
 
 	return nil
 }
@@ -79,18 +114,19 @@ func (n *NsqConsumerStarter) Init (ctx context.Context, handler nsq.Handler, opt
 	}
 
 	config = nsq.NewConfig()
-	config.LookupdPollInterval = time.Duration(n.options.Interval) * time.Second
+	config.LookupdPollInterval = time.Duration(Interval) * time.Second
 
-	consumer, err = nsq.NewConsumer(n.options.Topic, n.options.Channel, config)
+	consumer, err = nsq.NewConsumer(Topic, Channel, config)
 	if err != nil {
 		return err
 	}
 
 	consumer.AddHandler(handler)
 
-	if err = consumer.ConnectToNSQLookupd(n.options.Addr); err != nil {
+	if err = consumer.ConnectToNSQLookupd(Addr); err != nil {
 		return err
 	}
 
 	return nil
 }
+*/
