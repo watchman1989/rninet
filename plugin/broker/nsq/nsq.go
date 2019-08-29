@@ -1,43 +1,9 @@
 package nsq
 
-import (
-	"context"
-	"github.com/nsqio/go-nsq"
-	"github.com/watchman1989/rninet/plugin"
-)
-
 type nsqBroker struct {
 	options *Options
 }
 
-
-func init () {
-	plugin.InstallPlugin("broker", )
-}
-
-
-func (n *nsqBroker) Init (ctx context.Context, opts ...Option) error {
-
-	var (
-		err error
-		config *nsq.Config
-	)
-
-	n.options = &Options{}
-	for _, opt := range opts {
-		opt(n.options)
-	}
-
-	config = nsq.NewConfig()
-
-	n.producer, err = nsq.NewProducer(n.options.Addr, config)
-	if err != nil {
-		return err
-	}
-
-
-	return nil
-}
 
 
 /*
