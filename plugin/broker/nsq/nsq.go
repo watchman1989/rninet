@@ -3,11 +3,16 @@ package nsq
 import (
 	"context"
 	"github.com/nsqio/go-nsq"
+	"github.com/watchman1989/rninet/plugin"
 )
 
 type nsqBroker struct {
 	options *Options
-	producer *nsq.Producer
+}
+
+
+func init () {
+	plugin.InstallPlugin("broker", )
 }
 
 

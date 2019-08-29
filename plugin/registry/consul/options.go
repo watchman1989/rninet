@@ -1,5 +1,4 @@
-package registry
-
+package consul
 
 type Options struct {
 	Addrs []string
@@ -34,3 +33,4 @@ func WithInterval (interval int64) Option {
 		opts.Interval = interval
 	}
 }
+

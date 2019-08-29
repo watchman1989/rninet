@@ -22,7 +22,7 @@ const (
 )
 
 // SERVICE_APTH: /SERVICE/name/id
-
+/*
 var (
 	etcdRegistry *EtcdRegistry = &EtcdRegistry{
 		registerChannel: make(chan *registry.Service, DEFAULT_CHANNEL_LENGTH),
@@ -31,10 +31,12 @@ var (
 		lidMap: make(map[string]clientv3.LeaseID),
 	}
 )
+*/
 
 
 type EtcdRegistry struct {
-	options *registry.Options
+	name string
+	options *Options
 	client *clientv3.Client
 	lock sync.Mutex
 	registerChannel chan *registry.Service
@@ -44,13 +46,23 @@ type EtcdRegistry struct {
 }
 
 
+func NewEtcdRegistry () (registry.Registry) {
+
+	reg := &EtcdRegistry{
+		registerChannel: make(chan *registry.Service, DEFAULT_CHANNEL_LENGTH),
+		deregisterChannel: make(chan *registry.Service, DEFAULT_CHANNEL_LENGTH),
+		allServices: make(map[string]map[string]string),
+		lidMap: make(map[string]clientv3.LeaseID),
+	}
+
+	return reg
+}
+
+
 func init () {
 
-	fmt.Println("ETCD_INIT")
-
-	plugin.InstallPlugin("registry", etcdRegistry)
-
-	fmt.Println("ETCD_INIT_OVER")
+	reg := NewEtcdRegistry()
+	plugin.InstallPlugin("registry", reg)
 }
 
 
@@ -60,14 +72,13 @@ func (e *EtcdRegistry) Name () string {
 }
 
 
-func (e *EtcdRegistry) Init (ctx context.Context, opts ...registry.Option) error {
+func (e *EtcdRegistry) Init (ctx context.Context, opts ...interface{}) error {
 	var (
 		err error
-		opt registry.Option
 	)
-	e.options = &registry.Options{}
-	for _, opt = range opts {
-		opt(e.options)
+	e.options = &Options{}
+	for _, opt := range opts {
+		opt.(Option)(e.options)
 	}
 
 	if e.client, err = clientv3.New(clientv3.Config{Endpoints: e.options.Addrs, DialTimeout: time.Duration(e.options.Timeout) * time.Second,}); err != nil {

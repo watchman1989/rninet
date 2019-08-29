@@ -52,7 +52,7 @@ func (p *PluginManager) installPlugin (pluginType string, plugin interface{}) (e
 }
 
 
-func (p *PluginManager) initRegistry (ctx context.Context, name string, opts ...registry.Option) (registry.Registry, error) {
+func (p *PluginManager) initRegistry (ctx context.Context, name string, opts ...interface{}) (registry.Registry, error) {
 	var (
 		err    error
 		ok     bool
@@ -97,7 +97,7 @@ func InstallPlugin(pluginType string, plugin interface{}) error {
 	return pluginManager.installPlugin(pluginType, plugin)
 }
 
-func InitRegistry (ctx context.Context, name string, opts ...registry.Option) (registry.Registry, error) {
+func InitRegistry (ctx context.Context, name string, opts ...interface{}) (registry.Registry, error) {
 
 	return pluginManager.initRegistry(ctx, name, opts...)
 }
