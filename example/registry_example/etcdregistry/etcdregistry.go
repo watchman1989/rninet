@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
+	"github.com/watchman1989/rninet/plugin/registry/etcd"
 	"time"
 )
 
@@ -12,10 +13,10 @@ func main() {
 	reg, err := plugin.InitRegistry(
 		context.TODO(),
 		"etcd",
-		registry.WithAddrs([]string{"127.0.0.1:2379"}),
-		registry.WithTimeout(3),
-		registry.WithTTL(3),
-		registry.WithInterval(1),
+		etcd.WithAddrs([]string{"127.0.0.1:2379"}),
+		etcd.WithTimeout(3),
+		etcd.WithTTL(3),
+		etcd.WithInterval(1),
 	)
 
 

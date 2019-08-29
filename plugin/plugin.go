@@ -3,6 +3,7 @@ package plugin
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/watchman1989/rninet/plugin/broker"
 
 	"github.com/watchman1989/rninet/plugin/registry"
@@ -11,18 +12,18 @@ import (
 
 var (
 	pluginManager = &PluginManager{
-		registryPlugins: make(map[string]registry.Registry),
-		brokerPlugins: make(map[string]broker.Broker),
+		registryPlugins: make(map[string]func()registry.Registry),
+		brokerPlugins: make(map[string]func()broker.Broker),
 	}
 )
 
 type PluginManager struct {
-	registryPlugins map[string]registry.Registry
-	brokerPlugins map[string]broker.Broker
+	registryPlugins map[string]func()registry.Registry
+	brokerPlugins map[string]func()broker.Broker
 	lock sync.Mutex
 }
 
-func (p *PluginManager) installPlugin (pluginType string, plugin interface{}) (error) {
+func (p *PluginManager) installRegistryPlugin (pluginName string, pluginNewFunc func()registry.Registry) (error) {
 
 	var (
 		err error
@@ -32,69 +33,85 @@ func (p *PluginManager) installPlugin (pluginType string, plugin interface{}) (e
 	p.lock.Lock()
 	defer  p.lock.Unlock()
 
-	switch pluginType {
-	case "registry":
-		if _, ok = p.registryPlugins[plugin.(registry.Registry).Name()]; ok {
-			err = errors.New("PLUGIN_IS_EXISTS")
-			return err
-		}
-		p.registryPlugins[plugin.(registry.Registry).Name()] = plugin.(registry.Registry)
-	case "broker":
-		if _, ok = p.brokerPlugins[plugin.(broker.Broker).Name()]; ok {
-			err = errors.New("PLUGIN_IS_EXISTS")
-			return err
-		}
-		p.brokerPlugins[plugin.(broker.Broker).Name()] = plugin.(broker.Broker)
-
+	if _, ok = p.registryPlugins[pluginName]; ok {
+		err = errors.New("PLUGIN_IS_EXISTS")
+		return err
 	}
+	p.registryPlugins[pluginName] = pluginNewFunc
+
+	return nil
+}
+
+func (p *PluginManager) installBrokerPlugin (pluginName string, pluginNewFunc func()broker.Broker) (error) {
+
+	var (
+		err error
+		ok bool
+	)
+
+	p.lock.Lock()
+	defer  p.lock.Unlock()
+
+	if _, ok = p.registryPlugins[pluginName]; ok {
+		err = errors.New("PLUGIN_IS_EXISTS")
+		return err
+	}
+	p.brokerPlugins[pluginName] = pluginNewFunc
 
 	return nil
 }
 
 
-func (p *PluginManager) initRegistry (ctx context.Context, name string, opts ...interface{}) (registry.Registry, error) {
+func (p *PluginManager) initRegistry (ctx context.Context, name string, opts ...interface{}) (reg registry.Registry, err error) {
 	var (
-		err    error
 		ok     bool
-		plugin registry.Registry
+		regNewFunc func()registry.Registry
 	)
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
-	if plugin, ok = p.registryPlugins[name]; !ok {
-		err = errors.New("PLUGIN_IS_NOT_EXISTS")
-		return nil, err
+	regNewFunc, ok = p.registryPlugins[name]
+	if !ok {
+		fmt.Printf("%s NOT_EXISTS\n", name)
+		return reg, errors.New("NEW_%s_NOT_EXISTS")
 	}
 
-	err = plugin.Init(ctx, opts...)
+	reg = regNewFunc()
+	reg.Init(ctx, opts...)
 
-	return plugin, nil
+	return
 }
 
 
-func (p *PluginManager) initBroker (ctx context.Context, name string, opts ...interface{}) (broker.Broker, error) {
+func (p *PluginManager) initBroker (ctx context.Context, name string, opts ...interface{}) (bro broker.Broker, err error) {
 	var (
-		err    error
 		ok     bool
-		plugin broker.Broker
+		broNewFunc func()broker.Broker
 	)
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
-	if plugin, ok = p.brokerPlugins[name]; !ok {
-		err = errors.New("PLUGIN_IS_NOT_EXISTS")
-		return nil, err
+	broNewFunc, ok = p.brokerPlugins[name]
+	if !ok {
+		fmt.Printf("%s NOT_EXISTS\n", name)
+		return bro, errors.New("NEW_%s_NOT_EXISTS")
 	}
 
-	err = plugin.Init(ctx, opts...)
+	bro = broNewFunc()
+	bro.Init(ctx, opts...)
 
-	return plugin, nil
+	return
 }
 
 
-func InstallPlugin(pluginType string, plugin interface{}) error {
+func InstallRegistryPlugin(pluginName string, newPluginFunc func()registry.Registry) error {
 
-	return pluginManager.installPlugin(pluginType, plugin)
+	return pluginManager.installRegistryPlugin(pluginName, newPluginFunc)
+}
+
+func InstallBrokerPlugin(pluginName string, newPluginFunc func()broker.Broker) error {
+
+	return pluginManager.installBrokerPlugin(pluginName, newPluginFunc)
 }
 
 func InitRegistry (ctx context.Context, name string, opts ...interface{}) (registry.Registry, error) {

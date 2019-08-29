@@ -6,7 +6,6 @@ import (
 
 
 type Registry interface {
-	Name() string
 	Init(ctx context.Context, opts ...interface{}) (error)
 	Register (ctx context.Context, service *Service) (error)
 	Deregister (ctx context.Context, service *Service) (error)

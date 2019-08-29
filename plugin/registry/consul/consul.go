@@ -10,42 +10,30 @@ import (
 	"time"
 )
 
-var (
-	consulRegistry *ConsulRegistry = &ConsulRegistry{}
-)
-
-
 type ConsulRegistry struct {
-	options *registry.Options
+	options *Options
 	client *consulapi.Client
 }
 
 func init () {
-	fmt.Println("CONSUL_INIT")
+	plugin.InstallRegistryPlugin("consul", NewConsulRegistry)
+}
 
-	plugin.InstallPlugin("registry", consulRegistry)
-
-	fmt.Println("CONSUL_INIT_OVER")
+func NewConsulRegistry () registry.Registry {
+	return &ConsulRegistry{}
 }
 
 
-
-func (c *ConsulRegistry) Name () string {
-
-	return "consul"
-}
-
-
-func (c *ConsulRegistry) Init (ctx context.Context, opts ...registry.Option) error {
+func (c *ConsulRegistry) Init (ctx context.Context, opts ...interface{}) error {
 
 	var (
 		err error
-		opt registry.Option
+		opt interface{}
 	)
 
-	c.options = &registry.Options{}
+	c.options = &Options{}
 	for _, opt = range opts {
-		opt(c.options)
+		opt.(Option)(c.options)
 	}
 
 	config := consulapi.DefaultConfig()
@@ -59,7 +47,6 @@ func (c *ConsulRegistry) Init (ctx context.Context, opts ...registry.Option) err
 
 	return nil
 }
-
 
 
 func (c *ConsulRegistry) Register (ctx context.Context, service *registry.Service) error {
@@ -135,8 +122,6 @@ func (c *ConsulRegistry) SyncService (ctx context.Context, name string) chan map
 
 	return nil
 }
-
-
 
 
 type Health struct {}

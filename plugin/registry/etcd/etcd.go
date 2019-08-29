@@ -1,6 +1,5 @@
 package etcd
 
-
 import (
 	"context"
 	"encoding/json"
@@ -35,7 +34,6 @@ var (
 
 
 type EtcdRegistry struct {
-	name string
 	options *Options
 	client *clientv3.Client
 	lock sync.Mutex
@@ -43,6 +41,11 @@ type EtcdRegistry struct {
 	deregisterChannel chan *registry.Service
 	allServices map[string]map[string]string
 	lidMap map[string]clientv3.LeaseID
+}
+
+
+func init() {
+	plugin.InstallRegistryPlugin("etcd", NewEtcdRegistry)
 }
 
 
@@ -56,19 +59,6 @@ func NewEtcdRegistry () (registry.Registry) {
 	}
 
 	return reg
-}
-
-
-func init () {
-
-	reg := NewEtcdRegistry()
-	plugin.InstallPlugin("registry", reg)
-}
-
-
-func (e *EtcdRegistry) Name () string {
-
-	return "etcd"
 }
 
 
@@ -90,8 +80,8 @@ func (e *EtcdRegistry) Init (ctx context.Context, opts ...interface{}) error {
 
 	fmt.Println(e.allServices)
 
-	go etcdRegistry.watch()
-	go etcdRegistry.listen()
+	go e.watch()
+	go e.listen()
 
 	return nil
 }

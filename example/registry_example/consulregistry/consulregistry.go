@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/watchman1989/rninet/plugin/registry/consul"
 	"github.com/watchman1989/rninet/plugin"
 	"github.com/watchman1989/rninet/plugin/registry"
 	"time"
@@ -13,9 +14,9 @@ func main() {
 	reg, err := plugin.InitRegistry(
 		context.TODO(),
 		"consul",
-		registry.WithAddrs([]string{"127.0.0.1:8500"}),
-		registry.WithInterval(5),
-		registry.WithTTL(10),
+		consul.WithAddrs([]string{"127.0.0.1:8500"}),
+		consul.WithInterval(5),
+		consul.WithTTL(10),
 	)
 
 	if err != nil {
