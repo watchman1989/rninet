@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"context"
-	"fmt"
 )
 
 type MiddlewareFunction func (ctx context.Context, req interface{}) (rsp interface{}, err error)
@@ -21,26 +20,4 @@ func Chain (outer Middleware, others ...Middleware) Middleware {
 	}
 }
 
-func Use (m ...Middleware) {
-	userMiddleware = append(userMiddleware, m...)
-}
-
-
-func InsertMiddleware(middlewareFunction MiddlewareFunction) (MiddlewareFunction) {
-
-	var middlewareList []Middleware
-
-	if len(userMiddleware) > 0 {
-		middlewareList = append(middlewareList, userMiddleware...)
-	}
-
-	if len(middlewareList) > 0 {
-		m := Chain(middlewareList[0], middlewareList[1:]...)
-		fmt.Println("+++++++++++")
-		return m(middlewareFunction)
-	}
-
-	fmt.Println("-----------")
-	return middlewareFunction
-}
 

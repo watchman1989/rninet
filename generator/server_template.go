@@ -1,19 +1,16 @@
 package generator
 
-
-
 var serverTemplate = `
 package main
 import (
 	"fmt"
 	"net"
-	"google.golang.org/grpc"
+	"github.com/watchman1989/rninet/server"
 	"{{.Rpath}}/router"
 	"{{.Rpath}}/proto/{{.Package.Name}}"
 )
 
 var (
-	port = ":10001"
 	routerServer = &router.RouterServer{}
 )
 
@@ -21,17 +18,16 @@ func main() {
 
 	fmt.Printf("START_SERVER\n")
 	
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		fmt.Printf("NET_LISTEN_ERROR: %v\n", err)
+	if err := server.Init(); err != nil {
+		fmt.Printf("SERVER_INIT_ERROR: %v\n", err)
 		return
 	}
 	
-	srv := grpc.NewServer()
-	
-	{{.Package.Name}}.Register{{.Service.Name}}Server(srv, routerServer)
+	{{.Package.Name}}.Register{{.Service.Name}}Server(server.GRPCServer(), routerServer)
 
-	srv.Serve(lis)
-
+	if err := server.serve(); err != nil {
+		fmt.Printf("SERVER_ERROR: %v\n", err)
+		return
+	}
 }
 `
