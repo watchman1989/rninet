@@ -34,7 +34,7 @@ func Init(opts ...Option) error {
 	}
 
 	if options.Addr == "" {
-		options.Addr = "9090"
+		options.Addr = ":9090"
 	}
 
 	return nil

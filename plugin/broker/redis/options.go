@@ -6,6 +6,7 @@ type Options struct {
 	Port      int
 	User      string
 	Pass      string
+	Num	  	  int
 }
 
 type Option func (opts *Options)
@@ -33,5 +34,11 @@ func WithUser (user string) Option {
 func WithPass (pass string) Option {
 	return func (opts *Options) {
 		opts.Pass = pass
+	}
+}
+
+func WithNum (num int) Option {
+	return func(opts *Options) {
+		opts.Num = num
 	}
 }

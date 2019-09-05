@@ -4,7 +4,6 @@ var serverTemplate = `
 package main
 import (
 	"fmt"
-	"net"
 	"github.com/watchman1989/rninet/server"
 	"{{.Rpath}}/router"
 	"{{.Rpath}}/proto/{{.Package.Name}}"
@@ -25,7 +24,7 @@ func main() {
 	
 	{{.Package.Name}}.Register{{.Service.Name}}Server(server.GRPCServer(), routerServer)
 
-	if err := server.serve(); err != nil {
+	if err := server.Serve(); err != nil {
 		fmt.Printf("SERVER_ERROR: %v\n", err)
 		return
 	}
