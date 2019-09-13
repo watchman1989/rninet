@@ -14,7 +14,9 @@
 
 >>Etcd：封装了etcd的客户端和操作。<br>
 
->>Elasticsearch：封装了elasticsearch的客户端和操作。
+>>Elasticsearch：封装了elasticsearch的客户端和操作。<br>
+
+>>Mongo: 封装了mongo客户端。<br>
 
 
 
@@ -27,6 +29,10 @@
 >>>Etcd:使用etcd，实现服务的注册与发现。etcd是一个Go语言编写的分布式，高可用的一致性键值存储系统，用于配置共享和服务发现等。本项目利用etcd的K/V存储，租约和监控机制，实现了服务的注册和动态发现功能。<br>
 
 >>>Consul:使用consul，实现服务的注册与发现。consul是一个分布式，高可用的服务注册发现系统。本项目利用consul的服务发现以及健康检查，实现了服务的注册与发现功能。<br>
+
+>>>zookeeper<br>
+
+>>>eureka<br>
 
 >>发布订阅功能(支持多种消息队列)<br>
 
@@ -44,6 +50,14 @@
 >处理请求路由过程中，可加入前置或后置的中间件，可进行前置或后置的过滤，拦截等操作。<br>
 
 >>prometheus中间件，可在服务前后加入metrics打点，对服务调用监控或统计。<br>
+
+>>ratelimit<br>
+
+>>hystrix<br>
+
+>>zipkin<br>
+
+>>opentracing<br>
 
 >>自定义中间件。<br>
 
