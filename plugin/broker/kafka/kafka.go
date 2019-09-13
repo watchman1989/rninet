@@ -21,6 +21,13 @@ func NewKafkaBroker () broker.Broker {
 	return &kafkaBroker{}
 }
 
+type subscriber struct {
+	consumerGroup sarama.ConsumerGroup
+
+}
+
+
+
 func (b *kafkaBroker) Name() string {
 	return "kafka"
 }
@@ -43,6 +50,11 @@ func (b *kafkaBroker) Init (ctx context.Context, opts ...interface{}) error {
 
 func (b *kafkaBroker) Connect () error {
 
+	if b.client != nil {
+		return nil
+	}
+
+
 
 	return nil
 }
@@ -55,7 +67,7 @@ func (b *kafkaBroker) Disconnect () error {
 }
 
 
-func (b *kafkaBroker) Publish (topic string, m *broker.Message) {
+func (b *kafkaBroker) Publish (topic string, m *broker.Message) error {
 
 }
 
